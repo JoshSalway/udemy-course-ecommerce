@@ -2,80 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use Cart;
-use App\Product;
+use Stripe\Stripe;
 use Illuminate\Http\Request;
 
-class ShoppingController extends Controller
+class CheckoutController extends Controller
 {
-    public function add_to_cart()
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
     {
-        $pdt = Product::find($id);
-
-        $cartItem = Cart::add([
-            'id' => $pdt->id,
-            'name' => $pdt->name,
-            'qty' => request()->qty,
-            'price' => $pdt->price
-        ]);
-
-        Cart::associate($cartItem->rowId, 'App\Product');
-
-        return redirect()->route('cart');
+        return view('checkout');
     }
 
-    public function cart()
-    {
-        return view('cart');
+    public function pay() {
+        dd(request()->all());
+
+        Stripe::setApiKey("sk_test_TLcMIQKSzZ1HKbg2Qh8ib5YP");
     }
 
-    public function cart_delete($id)
-    {
-        Cart::remove($id);
-
-        return redirect()->back();
-    }
-
-    public function incr($id, $qty)
-    {
-        Cart::update($id, $qty + 1);
-
-        return redirect()->back();
-    }
-
-    public function decr($id, $qty)
-    {
-        Cart::update($id, $qty - 1);
-
-        return redirect()->back();
-    }
-
-    public function rapid_add($id) {
-
-        $pdt = Product::find($id);
-
-        $cartItem = Cart::add([
-            'id' => $pdt->id,
-            'name' => $pdt->name,
-            'qty' => 1,
-            'price' => $pdt->price
-        ]);
-
-        Cart::associate($cartItem->rowId, 'App\Product');
-
-        return redirect()->route('cart');
-
-    }
-//    /**
-//     * Display a listing of the resource.
-//     *
-//     * @return \Illuminate\Http\Response
-//     */
-//    public function index()
-//    {
-//        //
-//    }
-//
 //    /**
 //     * Show the form for creating a new resource.
 //     *

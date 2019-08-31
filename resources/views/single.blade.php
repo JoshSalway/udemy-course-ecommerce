@@ -30,9 +30,9 @@
                         <form action="{{ route('cart.add') }}" method="post">
                             {{ csrf_field() }}
                             <div class="quantity">
-                                <a href="{{ route('cart.decr', ['id' => $pdt->rowId]) }}" class="quantity-minus quantity-minus-d">-</a>
+                                <a href="{{ route('cart.decr', ['id' => $pdt->rowId, 'qty' => $pdt->qty ]) }}" class="quantity-minus quantity-minus-d">-</a>
                                 <input title="Qty" class="email input-text qty text" type="text" name="qty" value="1">
-                                <a href="{{ route('cart.incr') }}" class="quantity-plus quantity-plus-d">+</a>
+                                <a href="{{ route('cart.incr', ['id' => $pdt->rowId, 'qty' => $pdt->qty ])  }}" class="quantity-plus quantity-plus-d">+</a>
                             </div>
 
                             <input type="hidden" name="pdt_id" value="{{ $product->id }}">
