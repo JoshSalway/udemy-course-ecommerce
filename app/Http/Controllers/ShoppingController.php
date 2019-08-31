@@ -12,12 +12,14 @@ class ShoppingController extends Controller
     {
         $pdt = Product::find(request()->pdt_id);
 
-        $cart = Cart::add([
+        $cartItem = Cart::add([
             'id' => $pdt->id,
             'name' => $pdt->name,
             'qty' => request()->qty,
             'price' => $pdt->price
         ]);
+
+        Cart::associate($cartItem->rowId, 'App\Product');
 
         return redirect()->route('cart');
     }
@@ -25,6 +27,13 @@ class ShoppingController extends Controller
     public function cart()
     {
         return view('cart');
+    }
+
+    public function cart_delete($id)
+    {
+        Cart::remove($id);
+
+        return redirect()->back();
     }
 //    /**
 //     * Display a listing of the resource.
