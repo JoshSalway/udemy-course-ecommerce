@@ -18,7 +18,7 @@
 
                                 <div class="books-item-info">
 
-                                    <a href="{{ route('product.single', ['id' => $product->id ]) }}">
+                                    <a href="{{ route('products.single', ['id' => $product->id ]) }}">
                                         <h5 class="books-title">{{ $product->name }}</h5>
                                     </a>
 

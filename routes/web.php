@@ -18,7 +18,7 @@ Route::get('/', [
 
 Route::get('product/{id}', [
     'uses' => 'FrontEndController@singleProduct',
-    'as' => 'product.single'
+    'as' => 'products.single'
 ]);
 
 Route::post('/cart/add', [

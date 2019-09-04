@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Cart;
+use Stripe\PaymentIntent;
 use Stripe\Stripe;
 use Illuminate\Http\Request;
 
@@ -18,9 +20,16 @@ class CheckoutController extends Controller
     }
 
     public function pay() {
-        dd(request()->all());
-
         Stripe::setApiKey("sk_test_TLcMIQKSzZ1HKbg2Qh8ib5YP");
+
+        $charge = PaymentIntent::create([
+            'amount' => Cart::total() * 100,
+            'currency' => 'aud',
+            'payment_method_types' => ['card'],
+            'receipt_email' => 'test@test.com',
+        ]);
+
+        dd('Your card was charged successfully!');
     }
 
 //    /**
